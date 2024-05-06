@@ -19,3 +19,12 @@ CREATE TABLE batalhas (
     FOREIGN KEY (id_heroi2) REFERENCES herois(id),
     FOREIGN KEY (id_vencedor) REFERENCES herois(id),
 );
+
+
+INSERT INTO herois (nome, poder, nivel, pontos_vida) VALUES ("Homem-Aranha", "Velocidade", 80, 50),
+INSERT INTO herois (nome, poder, nivel, pontos_vida) VALUES ("Deadpool", "Regeneração", 90, 100),
+INSERT INTO herois (nome, poder, nivel, pontos_vida) VALUES ("Homem-de-Ferro", "", 55, 70),
+INSERT INTO herois (nome, poder, nivel, pontos_vida) VALUES ("Hulk", "Super-Força", 90, 99),
+INSERT INTO herois (nome, poder, nivel, pontos_vida) VALUES ("Capitão América", "Resistência", 75, 65),
+INSERT INTO herois (nome, poder, nivel, pontos_vida) VALUES ("Thor", "Trovão", 65, 70),
+INSERT INTO herois (nome, poder, nivel, pontos_vida) VALUES ("Pantera-Negra", "Velocidade", 50, 60),

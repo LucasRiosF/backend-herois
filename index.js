@@ -71,7 +71,25 @@ app.put('/herois/:id', async(req, res) => {
         console.error('Erro ao editar o heroi', error);
         res.status(500).send({mensagem: 'Erro ao editar o heroi'})
     }
-})
+});
+
+app.get('/herois/:nome', async (req, res) => {
+    try {
+        const { nome } = req.params;
+        const resultado = await pool.query('SELECT * FROM herois WHERE nome = $1', [nome]);
+        if (resultado.rowCount === 0) {
+            res.status(404).send({mensagem: 'Heroi não encontrado'});
+        } else {
+            res.status(200).json({
+                total: resultado.rowCount,
+                herois: resultado.rows
+            });
+        }
+    } catch (error) {
+        console.error('Erro ao obter heroi por nome', error);
+        res.status(500).send({mensagem: 'Erro ao obter heroi por nome'})
+    }
+});
 
 app.get('/herois/:id', async(req, res) => {
     try {
