@@ -41,10 +41,45 @@ app.post('/herois', async(req, res) => {
     try {
         const {nome, poder, nivel, pontos_vida}  = req.body;
     
-        await pool.query('INSERT INTO herois (nome, poder, nivel, pontos_vida) VALUES ($1, $2, $3, $4, )', [nome, poder, nivel, pontos_vida]);
+        await pool.query('INSERT INTO herois (nome, poder, nivel, pontos_vida) VALUES ($1, $2, $3, $4)', [nome, poder, nivel, pontos_vida]);
         res.status(201).send({mensagem: 'Sucesso ao criar heroi'});
     } catch (error) {
-        console.error('Erro ao criar bruxo', error);
+        console.error('Erro ao criar heroi', error);
         res.status(500).send({mensagem: 'Erro ao criar herois'})
+    }
+});
+
+app.delete('/herois/:id', async(req, res) => {
+    try {
+        const { id } = req.params;
+        await pool.query('DELETE FROM herois WHERE id = $1', [id]);
+        res.status(200).send({mensagem: 'Heroi deletado'});
+    } catch (error) {
+        console.error('Erro ao deletar heroi', error);
+        res.status(500).send({mensagem: 'Erro ao deletar heroi'})
+    }
+});
+
+app.put('/herois/:id', async(req, res) => {
+    try {
+        const { id } = req.params;
+        const {nome, poder, nivel, pontos_vida}  = req.body;
+
+        await pool.query('UPDATE herois SET nome = $1, poder = $2, nivel = $3, pontos_vida = $4 WHERE id = $5', [nome, poder, nivel, pontos_vida, id]);
+        res.status(200).send({mensagem: 'Heroi editado com sucesso'})
+    } catch (error) {
+        console.error('Erro ao editar o heroi', error);
+        res.status(500).send({mensagem: 'Erro ao editar o heroi'})
+    }
+})
+
+app.get('/herois/:id', async(req, res) => {
+    try {
+        const { id } = req.params;
+        await pool.query('SELECT * FROM herois WHERE id = $1', [id]);
+        res.status(200).send({mensagem: `Heroi encontrado com sucesso`});
+    } catch (error) {
+        console.error('Erro ao obter heroi por id', error);
+        res.status(500).send({mensagem: 'Erro ao obter heroi por id'})
     }
 });
