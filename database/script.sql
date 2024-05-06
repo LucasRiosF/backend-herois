@@ -18,4 +18,4 @@ CREATE TABLE batalhas (
     FOREIGN KEY (id_heroi1) REFERENCES herois(id),
     FOREIGN KEY (id_heroi2) REFERENCES herois(id),
     FOREIGN KEY (id_vencedor) REFERENCES herois(id),
-)
+);
