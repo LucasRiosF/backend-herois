@@ -101,3 +101,4 @@ app.get('/herois/:id', async(req, res) => {
         res.status(500).send({mensagem: 'Erro ao obter heroi por id'})
     }
 });
+
