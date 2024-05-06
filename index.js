@@ -104,7 +104,6 @@ app.get('/herois/:id', async(req, res) => {
 
 
 
-
 app.get('/batalhas/:id_heroi1/:id_heroi2', async(req, res) => {
    try {
    

@@ -20,7 +20,6 @@ CREATE TABLE batalhas (
     FOREIGN KEY (id_vencedor) REFERENCES herois(id)
 );
 
-
 INSERT INTO herois (nome, poder, nivel, pontos_vida) VALUES ('Homem-Aranha', 'Velocidade', 80, 65),
 INSERT INTO herois (nome, poder, nivel, pontos_vida) VALUES ('Deadpool', 'Regeneração', 90, 100),
 INSERT INTO herois (nome, poder, nivel, pontos_vida) VALUES ('Homem-de-Ferro', 'Resistência', 55, 70),
@@ -39,6 +38,6 @@ INSERT INTO herois (nome, poder, nivel, pontos_vida) VALUES ('Homem-Formiga', 'R
 INSERT INTO herois (nome, poder, nivel, pontos_vida) VALUES ('Groot', 'Super-Força', 30, 50),
 INSERT INTO herois (nome, poder, nivel, pontos_vida) VALUES ('Mercúrio', 'Velocidade', 20, 60),
 INSERT INTO herois (nome, poder, nivel, pontos_vida) VALUES ('Visão', 'Velocidade', 75, 70),
-INSERT INTO herois (nome, poder, nivel, pontos_vida) VALUES ('Homem-Invisivel', 'Invisibilidade', 30, 80),
+INSERT INTO herois (nome, poder, nivel, pontos_vida) VALUES ('Homem-Invisivel', 'Invisibilidade', 30, 50),
 INSERT INTO herois (nome, poder, nivel, pontos_vida) VALUES ('Tempestade', 'Trovão', 40, 90),
 INSERT INTO herois (nome, poder, nivel, pontos_vida) VALUES ('Motoqueiro Fantasma', 'Fogo', 90, 90);
