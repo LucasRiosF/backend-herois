@@ -154,7 +154,7 @@ app.get('/batalhas/:id_heroi1/:id_heroi2', async (req, res) => {
 
         await pool.query('INSERT INTO batalhas (id_heroi1, id_heroi2, id_vencedor) VALUES ($1, $2, $3)', [id_heroi1, id_heroi2, vencedorId]);
 
-        res.status(200).send({ mensagem: `A batalha terminou, o herói com ID ${vencedorId} venceu.` });
+        res.status(200).send({ mensagem: `O herói com ID ${vencedorId} venceu a batalha.` });
 
     } catch (error) {
         console.error('Erro ao processar batalha', error);
