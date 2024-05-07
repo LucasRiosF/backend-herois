@@ -22,13 +22,13 @@ function calcularDano(poder, nivel) {
         case 'Velocidade':
             return (20 + nivel) / 2;
         case 'Regeneração':
-            return 100;
+            return (100 + nivel) / 2;
         case 'Resistência':
             return (30 + nivel) / 2;
         case 'Invisibilidade':
             return (15 + nivel) / 2;
         case 'Fogo':
-            return 6;
+            return (35 + nivel) / 2;;
         case 'Super Força':
             return (40 + nivel) / 2;
         case 'Trovão':
@@ -117,6 +117,50 @@ app.get('/herois/:id', async(req, res) => {
     }
 });
 
+
+app.get('/batalhas/:id_heroi1/:id_heroi2', async (req, res) => {
+    try {
+        const { id_heroi1, id_heroi2 } = req.params;
+
+        const hero1 = await pool.query('SELECT * FROM herois WHERE id = $1', [id_heroi1]);
+        const hero2 = await pool.query('SELECT * FROM herois WHERE id = $1', [id_heroi2]);
+
+        if (hero1.rows.length === 0 || hero2.rows.length === 0) {
+            res.status(404).send({ mensagem: 'Um ou ambos os heróis não foram encontrados.' });
+            return;
+        }
+
+        let danoHero1 = calcularDano(hero1.rows[0].poder, hero1.rows[0].nivel);
+        let danoHero2 = calcularDano(hero2.rows[0].poder, hero2.rows[0].nivel);
+
+        let vidaHero1 = hero1.rows[0].pontos_vida;
+        let vidaHero2 = hero2.rows[0].pontos_vida;
+
+        vidaHero1 = vidaHero1 - danoHero2;
+        vidaHero2 = vidaHero2 - danoHero1;
+
+        let vencedorId, perdedorId;
+
+        if (vidaHero1 > vidaHero2) {
+            vencedorId = id_heroi1;
+            perdedorId = id_heroi2;
+        } else if (vidaHero2 > vidaHero1) {
+            vencedorId = id_heroi2;
+            perdedorId = id_heroi1;
+        } else {
+            res.status(200).send({ mensagem: 'EMPATE!' });
+            return;
+        }
+
+        await pool.query('INSERT INTO batalhas (id_heroi1, id_heroi2, id_vencedor) VALUES ($1, $2, $3)', [id_heroi1, id_heroi2, vencedorId]);
+
+        res.status(200).send({ mensagem: `A batalha terminou, o herói com ID ${vencedorId} venceu.` });
+
+    } catch (error) {
+        console.error('Erro ao processar batalha', error);
+        res.status(500).send({ mensagem: 'Erro ao processar batalha' });
+    }
+});
 
 
 app.get('/', (req, res) => {
