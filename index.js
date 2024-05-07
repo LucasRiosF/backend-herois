@@ -11,18 +11,33 @@ const pool = new Pool({
     host: 'localhost',
     database: 'lucas',
     password: 'ds564',
-    port: 7007, //5432
+    port: 5432, //7007
 });
 
 app.use(express.json());
 
-app.get('/', (req, res) => {
-    res.send('Servidor está funcionando');
-});
 
-app.listen(port, () => {
-    console.log(`Servidor rodando na porta ${port}`);
-});
+function calcularDano(poder, nivel) {
+    switch (poder) {
+        case 'Velocidade':
+            return (20 + nivel) / 2;
+        case 'Regeneração':
+            return 100;
+        case 'Resistência':
+            return (30 + nivel) / 2;
+        case 'Invisibilidade':
+            return (15 + nivel) / 2;
+        case 'Fogo':
+            return 6;
+        case 'Super Força':
+            return (40 + nivel) / 2;
+        case 'Trovão':
+            return (25 + nivel) / 2;
+        default:
+            return 0;
+    }
+}
+
 
 app.get('/herois', async (req, res) => {
     try {
@@ -104,10 +119,10 @@ app.get('/herois/:id', async(req, res) => {
 
 
 
-app.get('/batalhas/:id_heroi1/:id_heroi2', async(req, res) => {
-   try {
-   
-   } catch (error) {
-    
-   }
+app.get('/', (req, res) => {
+    res.send('Servidor está funcionando');
+});
+
+app.listen(port, () => {
+    console.log(`Servidor rodando na porta ${port}`);
 });
