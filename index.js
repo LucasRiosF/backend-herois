@@ -38,7 +38,6 @@ function calcularDano(poder, nivel) {
     }
 }
 
-
 app.get('/herois', async (req, res) => {
     try {
         const resultado = await pool.query('SELECT * FROM herois');
