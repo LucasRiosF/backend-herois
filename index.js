@@ -11,7 +11,7 @@ const pool = new Pool({
     host: 'localhost',
     database: 'lucas',
     password: 'ds564',
-    port: 5432, //7007
+    port: 7007, //5432
 });
 
 app.use(express.json());
@@ -158,6 +158,15 @@ app.get('/batalhas/:id_heroi1/:id_heroi2', async (req, res) => {
     } catch (error) {
         console.error('Erro ao processar batalha', error);
         res.status(500).send({ mensagem: 'Erro ao processar batalha' });
+    }
+});
+
+app.get('/batalhas/herois', async (req, res) => {
+    try {
+        const { rows } = await pool.query('SELECT batalhas.id, id_heroi1, id_heroi2, id_vencedor, herois.nome as nome_vencedor, herois.poder as heroi_poder, herois.nivel as vencedor_nivel, herois.pontos_vida as heroi_hp FROM batalhas INNER JOIN herois ON batalhas.id_vencedor = herois.id');
+        res.json(rows);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
 });
 
