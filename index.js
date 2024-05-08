@@ -105,7 +105,7 @@ app.get('/herois/:nome', async (req, res) => {
     }
 });
 
-app.get('/herois/:id', async(req, res) => {
+app.get('/herois/id/:id', async(req, res) => {
     try {
         const { id } = req.params;
         await pool.query('SELECT * FROM herois WHERE id = $1', [id]);
