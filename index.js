@@ -161,6 +161,15 @@ app.get('/batalhas/:id_heroi1/:id_heroi2', async (req, res) => {
     }
 });
 
+app.get('/batalhas', async (req, res) => {
+    try {
+        const { rows } = await pool.query('SELECT * FROM batalhas');
+        res.json(rows);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 app.get('/batalhas/herois', async (req, res) => {
     try {
         const { rows } = await pool.query('SELECT batalhas.id, id_heroi1, id_heroi2, id_vencedor, herois.nome as nome_vencedor, herois.poder as heroi_poder, herois.nivel as vencedor_nivel, herois.pontos_vida as heroi_hp FROM batalhas INNER JOIN herois ON batalhas.id_vencedor = herois.id');
